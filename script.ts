@@ -100,8 +100,9 @@
 
     for (let article of articles) {
       /* find div for storing tags  */
-      const tagWrapper: HTMLElement | null =
-        article.querySelector(selectorArticleTags);
+      const tagWrapper = article.querySelector(
+        selectorArticleTags
+      ) as HTMLElement;
 
       /* prepare variable for storing all the tag links */
       let html = "";
@@ -127,12 +128,11 @@
       }
 
       /* insert HTML of all the links into the tags wrapper */
-      tagWrapper!.insertAdjacentHTML("afterbegin", html);
+      tagWrapper.insertAdjacentHTML("afterbegin", html);
     }
 
     /* find tags list in sidebar */
-    const tagList: HTMLElement | null =
-      document.querySelector(selectorTagsList);
+    const tagList = document.querySelector(selectorTagsList) as HTMLElement;
 
     /* create variable for all links */
     let allTagsHTML = "";
@@ -143,7 +143,7 @@
     }
 
     /* add html from allTagsHTML to tagList */
-    tagList!.innerHTML = allTagsHTML;
+    tagList.innerHTML = allTagsHTML;
   };
 
   const generateAuthors = (): void => {
@@ -176,7 +176,7 @@
         '">' +
         author +
         "</a>";
-      articleAuthor.insertAdjacentHTML("beforeend", html) as void;
+      articleAuthor.insertAdjacentHTML("beforeend", html);
     }
 
     /* find wrapper for author links in sidebar */
