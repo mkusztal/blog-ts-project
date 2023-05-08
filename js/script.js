@@ -13,19 +13,22 @@
         const clickedElement = this;
         /* find active link and make it inactive */
         const activeLink = document.querySelector(".titles a.active");
-        if (activeLink)
+        if (activeLink) {
             activeLink.classList.remove("active");
+        }
         /* add active class to clicked link */
         clickedElement.classList.add("active");
         /* find and hide active article */
         const activeArticle = document.querySelector(".posts article.active");
-        if (activeArticle)
+        if (activeArticle) {
             activeArticle.classList.remove("active");
+        }
         /* find id of article related to clicked link, then find it and show */
         const hrefAttribute = clickedElement.getAttribute("href");
         const targetArticle = document.querySelector(hrefAttribute);
-        if (targetArticle)
+        if (targetArticle) {
             targetArticle.classList.add("active");
+        }
     };
     const generateTitleLinks = (customSelector = "") => {
         /* find and empty title list */
@@ -39,13 +42,14 @@
             /* find id of the article */
             const articleID = article.getAttribute("id");
             /* find elem that holds the title and retrieve it */
-            const articleTitle = article.querySelector(selectorTitle).innerHTML;
+            const articleTitle = article.querySelector(selectorTitle)
+                .innerHTML;
             /* create HTML of the link */
-            const linkHTML = ('<li><a href="#' +
+            const linkHTML = '<li><a href="#' +
                 articleID +
                 '"><span>' +
                 articleTitle +
-                "</span></a></li>");
+                "</span></a></li>";
             /* insert link into html variable */
             html += linkHTML;
         }
@@ -74,11 +78,7 @@
             /* loop through tags */
             for (let tag of tagsArray) {
                 /* generate HTML of the link */
-                const linkHTML = ('<li><a href="#tag-' +
-                    tag +
-                    '">' +
-                    tag +
-                    "</a></li>");
+                const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + "</a></li>";
                 /* add generated code to html variable */
                 html += linkHTML;
                 /* check if tag is NOT already in allTags, if not -> push it */
@@ -95,11 +95,7 @@
         let allTagsHTML = "";
         /* loop for each tag in unique tags list */
         for (let tag of allTags) {
-            allTagsHTML += ('<li><a href="#tag-' +
-                tag +
-                '">' +
-                tag +
-                "</a></li>");
+            allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + "</a></li>";
         }
         /* add html from allTagsHTML to tagList */
         tagList.innerHTML = allTagsHTML;
@@ -119,11 +115,11 @@
                 allAuthors.push(author);
             }
             /* create author link and add it  to article */
-            const html = ('by <a href="#author-' +
+            const html = 'by <a href="#author-' + //undefined
                 author +
                 '">' +
                 author +
-                "</a>");
+                "</a>";
             articleAuthor.insertAdjacentHTML("beforeend", html);
         }
         /* find wrapper for author links in sidebar */

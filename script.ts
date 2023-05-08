@@ -20,7 +20,10 @@
     const activeLink = document.querySelector(
       ".titles a.active"
     ) as HTMLLinkElement;
-    if (activeLink) activeLink.classList.remove("active");
+
+    if (activeLink) {
+      activeLink.classList.remove("active");
+    }
 
     /* add active class to clicked link */
     clickedElement.classList.add("active");
@@ -29,21 +32,28 @@
     const activeArticle = document.querySelector(
       ".posts article.active"
     ) as HTMLLinkElement;
-    if (activeArticle) activeArticle.classList.remove("active");
+
+    if (activeArticle) {
+      activeArticle.classList.remove("active");
+    }
 
     /* find id of article related to clicked link, then find it and show */
     const hrefAttribute = clickedElement.getAttribute("href") as string;
     const targetArticle = document.querySelector(hrefAttribute) as HTMLElement;
-    if (targetArticle) targetArticle.classList.add("active");
+
+    if (targetArticle) {
+      targetArticle.classList.add("active");
+    }
   };
 
-  const generateTitleLinks = (customSelector = "" as string): any => {
+  const generateTitleLinks = (customSelector = ""): void => {
     /* find and empty title list */
     const titleList = document.querySelector(selectorTitleList) as HTMLElement;
-    titleList.innerHTML = "" as string;
+
+    titleList.innerHTML = "";
 
     /* prepare variable for storing all the title links */
-    let html: string = "";
+    let html = "";
 
     /* find all articles and loop through each of them */
     const articles = document.querySelectorAll(
@@ -55,28 +65,27 @@
       const articleID = article.getAttribute("id") as string;
 
       /* find elem that holds the title and retrieve it */
-      const articleTitle = (
-        article.querySelector(selectorTitle) as HTMLInputElement
-      ).innerHTML as string;
+      const articleTitle = (article.querySelector(selectorTitle) as HTMLElement)
+        .innerHTML;
 
       /* create HTML of the link */
-      const linkHTML = ('<li><a href="#' +
+      const linkHTML =
+        '<li><a href="#' +
         articleID +
         '"><span>' +
         articleTitle +
-        "</span></a></li>") as string;
+        "</span></a></li>";
 
       /* insert link into html variable */
       html += linkHTML;
     }
 
     /* add all the links from html variable to titleList */
-    titleList.insertAdjacentHTML("afterbegin", html) as void;
+    titleList.insertAdjacentHTML("afterbegin", html);
 
     /* find created links and add listeners to them */
-    const links = document.querySelectorAll(
-      ".titles a"
-    ) as NodeListOf<HTMLUListElement>;
+    const links = document.querySelectorAll(".titles a");
+
     for (let link of links) {
       link.addEventListener("click", titleClickHandler);
     }
@@ -84,35 +93,28 @@
 
   const generateTags = (): void => {
     /* create a new array for holding unique tag names */
-    const allTags = [] as string[];
+    const allTags: string[] = [];
 
     /* find all articles and loop through */
-    const articles = document.querySelectorAll(
-      selectorArticle
-    ) as NodeListOf<HTMLElement>;
+    const articles = document.querySelectorAll(selectorArticle);
+
     for (let article of articles) {
       /* find div for storing tags  */
-      const tagWrapper = article.querySelector(
-        selectorArticleTags
-      ) as HTMLUListElement;
+      const tagWrapper = article.querySelector(selectorArticleTags);
 
       /* prepare variable for storing all the tag links */
-      let html = "" as string;
+      let html = "";
 
       /* get info about tags from data-tags attribute */
       const dataTag = article.getAttribute("data-tags") as string;
 
       /* split tags into array */
-      const tagsArray = dataTag.split(" ") as string[];
+      const tagsArray: string[] = dataTag.split(" ");
 
       /* loop through tags */
       for (let tag of tagsArray) {
         /* generate HTML of the link */
-        const linkHTML = ('<li><a href="#tag-' +
-          tag +
-          '">' +
-          tag +
-          "</a></li>") as string;
+        const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + "</a></li>";
 
         /* add generated code to html variable */
         html += linkHTML;
@@ -122,39 +124,35 @@
           allTags.push(tag);
         }
       }
+
       /* insert HTML of all the links into the tags wrapper */
-      tagWrapper.insertAdjacentHTML("afterbegin", html) as void;
+      tagWrapper.insertAdjacentHTML("afterbegin", html);
     }
 
     /* find tags list in sidebar */
-    const tagList = document.querySelector(
-      selectorTagsList
-    ) as HTMLUListElement;
+    const tagList = document.querySelector(selectorTagsList);
 
     /* create variable for all links */
-    let allTagsHTML = "" as string;
+    let allTagsHTML = "";
 
     /* loop for each tag in unique tags list */
     for (let tag of allTags) {
-      allTagsHTML += ('<li><a href="#tag-' +
-        tag +
-        '">' +
-        tag +
-        "</a></li>") as string;
+      allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + "</a></li>";
     }
 
     /* add html from allTagsHTML to tagList */
-    tagList.innerHTML = allTagsHTML as string;
+    tagList.innerHTML = allTagsHTML;
   };
 
-  const generateAuthors = () => {
+  const generateAuthors = (): void => {
     /* create list of unique authors */
-    let allAuthors = [] as string[];
+    let allAuthors: string[] = [];
 
     /* find all articles and loop through */
     const articles = document.querySelectorAll(
       selectorArticle
     ) as NodeListOf<HTMLElement>;
+
     for (let article of articles) {
       /* find wrapper for author in article elem */
       const articleAuthor = article.querySelector(
@@ -170,11 +168,12 @@
       }
 
       /* create author link and add it  to article */
-      const html = ('by <a href="#author-' +
+      const html =
+        'by <a href="#author-' + //undefined
         author +
         '">' +
         author +
-        "</a>") as string;
+        "</a>";
       articleAuthor.insertAdjacentHTML("beforeend", html) as void;
     }
 
@@ -188,7 +187,7 @@
       authorList.insertAdjacentHTML(
         "afterbegin",
         '<li><a href="#">' + author + "</a></li>"
-      ) as void;
+      );
     }
   };
 
